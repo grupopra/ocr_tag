@@ -1,0 +1,26 @@
+route_id,driver_name,delivery_date,recipient_name,address,cep,city,state,nf_number,gps_lat,gps_lon,delivery_window_start,delivery_window_end,status
+R001,João Silva,2025-01-20,ana caroline de souza da silva,Rua Professor Taciel Cylleno 599,99790010,Rio de Janeiro,RJ,F258454,-23.017866,-43.451602,09:00,17:00,pending
+R002,Maria Santos,2025-01-20,Carlos Eduardo Mendes,Av. Paulista 1000,01310-100,São Paulo,SP,NF789123,-23.561344,-46.656321,08:00,18:00,pending
+R003,Pedro Oliveira,2025-01-20,Fernanda Lima Costa,Rua das Flores 250,22071-900,Rio de Janeiro,RJ,F445789,-22.971177,-43.182543,10:00,16:00,pending
+R004,Ana Pereira,2025-01-20,José Roberto Alves,Av. Atlântica 500,22021-001,Rio de Janeiro,RJ,NF334567,-22.971867,-43.177621,09:30,17:30,pending
+R005,Lucas Martins,2025-01-20,Beatriz Ferreira Silva,Rua Oscar Freire 150,01426-001,São Paulo,SP,F112233,-23.562412,-46.670089,08:30,18:30,pending
+R006,Carla Rodrigues,2025-01-20,Eduardo Santos Oliveira,Av. Copacabana 800,22060-000,Rio de Janeiro,RJ,NF998877,-22.970722,-43.187655,11:00,19:00,pending
+R007,Roberto Costa,2025-01-20,Juliana Moreira Lima,Rua Augusta 1200,01305-100,São Paulo,SP,F556677,-23.557321,-46.662188,07:00,15:00,pending
+R008,Patrícia Alves,2025-01-20,Marcos Vinícius Santos,Av. Beira Mar 300,22021-060,Rio de Janeiro,RJ,NF123789,-22.975566,-43.174532,12:00,20:00,pending
+R009,Fernando Silva,2025-01-20,Camila Rodrigues Alves,Rua Consolação 600,01302-000,São Paulo,SP,F789456,-23.554421,-46.653987,08:00,16:00,pending
+R010,Gabriela Santos,2025-01-20,Rafael Pereira Costa,Av. Vieira Souto 400,22420-000,Rio de Janeiro,RJ,NF654321,-22.984433,-43.190876,13:00,21:00,pending
+R011,Thiago Mendes,2025-01-20,Larissa Oliveira Silva,Rua Haddock Lobo 800,01414-002,São Paulo,SP,F321654,-23.563789,-46.669234,09:00,17:00,pending
+R012,Vanessa Lima,2025-01-20,Bruno Martins Ferreira,Rua Barata Ribeiro 700,22040-000,Rio de Janeiro,RJ,NF987654,-22.966543,-43.184321,10:30,18:30,pending
+R013,Diego Ferreira,2025-01-20,Priscila Santos Costa,Av. Faria Lima 1500,01452-000,São Paulo,SP,F147258,-23.573298,-46.693876,08:00,18:00,pending
+R014,Renata Oliveira,2025-01-20,Gustavo Almeida Santos,Rua Visconde de Pirajá 550,22410-000,Rio de Janeiro,RJ,NF369852,-22.982145,-43.191234,14:00,22:00,pending
+R015,Marcos Pereira,2025-01-20,Letícia Rodrigues Lima,Rua Teodoro Sampaio 900,05405-000,São Paulo,SP,F258147,-23.554987,-46.683456,07:30,15:30,pending
+R016,Juliana Costa,2025-01-20,André Luiz Oliveira,Av. Nossa Senhora de Copacabana 1200,22070-010,Rio de Janeiro,RJ,NF741852,-22.970011,-43.188567,11:30,19:30,pending
+R017,Rodrigo Santos,2025-01-20,Natália Ferreira Costa,Rua Alameda Santos 1100,01419-001,São Paulo,SP,F963852,-23.561789,-46.654123,09:30,17:30,pending
+R018,Claudia Alves,2025-01-20,Felipe Martins Silva,Rua Siqueira Campos 200,22031-070,Rio de Janeiro,RJ,NF159753,-22.973456,-43.181789,15:00,23:00,pending
+R019,Leandro Lima,2025-01-20,Isabela Santos Alves,Av. Rebouças 1800,05402-600,São Paulo,SP,F357159,-23.560234,-46.680987,08:30,16:30,pending
+R020,Cristina Martins,2025-01-20,Vinicius Costa Oliveira,Rua Rodolfo Dantas 100,22020-040,Rio de Janeiro,RJ,NF951357,-22.972789,-43.183456,12:30,20:30,pending
+R021,Alexandre Silva,2025-01-21,Mariana Oliveira Santos,Rua Peixoto Gomide 500,01409-001,São Paulo,SP,F753951,-23.558901,-46.661234,08:00,18:00,pending
+R022,Bianca Pereira,2025-01-21,Leonardo Ferreira Costa,Av. Presidente Vargas 1000,20071-000,Rio de Janeiro,RJ,NF159357,-22.903456,-43.180789,09:00,17:00,pending
+R023,Mateus Costa,2025-01-21,Débora Santos Lima,Rua Bela Cintra 800,01415-000,São Paulo,SP,F951753,-23.565123,-46.667890,10:00,18:00,pending
+R024,Amanda Santos,2025-01-21,Henrique Alves Martins,Rua General Osório 300,22250-000,Rio de Janeiro,RJ,NF357951,-22.954321,-43.177654,11:00,19:00,pending
+R025,Gustavo Oliveira,2025-01-21,Carolina Pereira Silva,Av. Brigadeiro Faria Lima 2000,01451-000,São Paulo,SP,F159753,-23.574567,-46.695432,07:00,15:00,pending 

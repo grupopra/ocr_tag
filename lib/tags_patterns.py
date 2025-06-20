@@ -1,0 +1,287 @@
+"""
+🧠 Sistema de Padrões de Reconhecimento de Etiquetas
+Patterns inteligentes para identificar transportadoras e extrair dados
+"""
+
+import re
+from typing import Dict, List, Optional, Tuple
+from dataclasses import dataclass
+from enum import Enum
+
+class CompanyType(Enum):
+    AMAZON = "amazon"
+    CORREIOS = "correios"
+    MERCADO_LIVRE = "mercado_livre"
+    CUSTOM = "custom"
+    UNKNOWN = "unknown"
+
+@dataclass
+class PatternMatch:
+    company: CompanyType
+    confidence: float
+    matched_text: str
+    pattern_used: str
+    extracted_data: Dict[str, str]
+
+class TagsPatterns:
+    """Sistema inteligente de reconhecimento de padrões em etiquetas"""
+    
+    def __init__(self):
+        self.company_patterns = self._load_company_patterns()
+        self.data_extraction_patterns = self._load_data_patterns()
+        
+    def _load_company_patterns(self) -> Dict[CompanyType, List[Dict]]:
+        """Carrega padrões de identificação de transportadoras"""
+        return {
+            CompanyType.AMAZON: [
+                {
+                    "name": "amazon_logo",
+                    "pattern": r"(?i)(amazon\.com\.br|amazon|fulfillment|prime)",
+                    "confidence": 0.95,
+                    "shortcuts": ["amazon.com.br", "prime", "fulfillment"]
+                },
+                {
+                    "name": "amazon_address",
+                    "pattern": r"(?i)(av\.?\s+das\s+nações\s+unidas|barueri|sp)",
+                    "confidence": 0.75,
+                    "context": "amazon_warehouse"
+                }
+            ],
+            
+            CompanyType.CORREIOS: [
+                {
+                    "name": "correios_logo", 
+                    "pattern": r"(?i)(correios|empresa\s+brasileira\s+de\s+correios|pac|sedex)",
+                    "confidence": 0.90,
+                    "shortcuts": ["correios", "pac", "sedex", "ecorreios"]
+                },
+                {
+                    "name": "correios_code",
+                    "pattern": r"[A-Z]{2}\d{9}[A-Z]{2}",
+                    "confidence": 0.85,
+                    "context": "tracking_code"
+                }
+            ],
+            
+            CompanyType.MERCADO_LIVRE: [
+                {
+                    "name": "ml_logo",
+                    "pattern": r"(?i)(mercado\s*livre|mercado\s*envios|meli)",
+                    "confidence": 0.90,
+                    "shortcuts": ["mercado livre", "mercado envios", "meli"]
+                },
+                {
+                    "name": "ml_full_code",
+                    "pattern": r"(?i)(full\s*fulfillment|cross\s*docking)",
+                    "confidence": 0.80,
+                    "context": "ml_logistics"
+                }
+            ]
+        }
+    
+    def _load_data_patterns(self) -> Dict[str, Dict]:
+        """Carrega padrões para extração de dados específicos"""
+        return {
+            "recipient_name": {
+                "patterns": [
+                    r"(?i)(?:para|destinatário|nome):\s*([a-záàâãéèêíìîóòôõúùûç\s]+)",
+                    r"(?i)^([a-záàâãéèêíìîóòôõúùûç\s]{10,50})$",  # Nome completo
+                    r"([A-ZÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛÇ][a-záàâãéèêíìîóòôõúùûç]+(?:\s+[A-ZÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛÇ][a-záàâãéèêíìîóòôõúùûç]+)+)"
+                ],
+                "confidence_base": 0.8
+            },
+            
+            "address": {
+                "patterns": [
+                    r"(?i)(rua|av|avenida|alameda|praça)\s+([^,\n]+)",
+                    r"(?i)(?:endereço|end):\s*([^,\n]+)",
+                    r"([A-Z][a-z]+\s+[A-Z][a-z]+.*?\d+)"
+                ],
+                "confidence_base": 0.7
+            },
+            
+            "cep": {
+                "patterns": [
+                    r"\b(\d{5})-?(\d{3})\b",
+                    r"(?i)cep:\s*(\d{5})-?(\d{3})",
+                    r"(\d{8})"  # CEP sem separador
+                ],
+                "confidence_base": 0.9
+            },
+            
+            "city": {
+                "patterns": [
+                    r"(?i)([a-záàâãéèêíìîóòôõúùûç\s]+)\s*-\s*([A-Z]{2})",
+                    r"(?i)cidade:\s*([a-záàâãéèêíìîóòôõúùûç\s]+)",
+                    r"([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s*,\s*[A-Z]{2}"
+                ],
+                "confidence_base": 0.75
+            },
+            
+            "nf_number": {
+                "patterns": [
+                    r"(?i)n\.?f\.?\s*(\d+)",
+                    r"(?i)nota\s+fiscal\s*:?\s*([A-Z]?\d+)",
+                    r"(?i)nf\s*:?\s*([A-Z]?\d+)"
+                ],
+                "confidence_base": 0.85
+            }
+        }
+    
+    def identify_company(self, text: str) -> PatternMatch:
+        """Identifica a transportadora baseada no texto extraído"""
+        best_match = PatternMatch(
+            company=CompanyType.UNKNOWN,
+            confidence=0.0,
+            matched_text="",
+            pattern_used="",
+            extracted_data={}
+        )
+        
+        text_clean = text.strip()
+        
+        for company, patterns in self.company_patterns.items():
+            for pattern_info in patterns:
+                matches = re.findall(pattern_info["pattern"], text_clean)
+                
+                if matches:
+                    confidence = pattern_info["confidence"]
+                    
+                    # Bonus de confiança para múltiplas ocorrências
+                    if len(matches) > 1:
+                        confidence = min(0.99, confidence + 0.05)
+                    
+                    # Bonus para shortcuts conhecidos
+                    if "shortcuts" in pattern_info:
+                        for shortcut in pattern_info["shortcuts"]:
+                            if shortcut.lower() in text_clean.lower():
+                                confidence = min(0.99, confidence + 0.03)
+                    
+                    if confidence > best_match.confidence:
+                        best_match = PatternMatch(
+                            company=company,
+                            confidence=confidence,
+                            matched_text=str(matches[0]) if matches else "",
+                            pattern_used=pattern_info["name"],
+                            extracted_data={}
+                        )
+        
+        return best_match
+    
+    def extract_data(self, text: str, data_type: str) -> List[Tuple[str, float]]:
+        """Extrai dados específicos do texto usando padrões inteligentes"""
+        results = []
+        
+        if data_type not in self.data_extraction_patterns:
+            return results
+        
+        patterns_info = self.data_extraction_patterns[data_type]
+        base_confidence = patterns_info["confidence_base"]
+        
+        for pattern in patterns_info["patterns"]:
+            matches = re.findall(pattern, text, re.MULTILINE | re.IGNORECASE)
+            
+            for match in matches:
+                if isinstance(match, tuple):
+                    # Para CEP e outros com grupos
+                    if data_type == "cep" and len(match) == 2:
+                        extracted = f"{match[0]}-{match[1]}"
+                    else:
+                        extracted = " ".join(match).strip()
+                else:
+                    extracted = match.strip()
+                
+                # Validações específicas por tipo
+                confidence = self._validate_extraction(data_type, extracted, base_confidence)
+                
+                if confidence > 0.3:  # Threshold mínimo
+                    results.append((extracted, confidence))
+        
+        # Remover duplicatas e ordenar por confiança
+        unique_results = list(set(results))
+        unique_results.sort(key=lambda x: x[1], reverse=True)
+        
+        return unique_results[:3]  # Top 3 resultados
+    
+    def _validate_extraction(self, data_type: str, extracted: str, base_confidence: float) -> float:
+        """Valida extração específica e ajusta confiança"""
+        
+        if data_type == "cep":
+            # CEP deve ter 8 dígitos
+            clean_cep = re.sub(r"[^0-9]", "", extracted)
+            if len(clean_cep) == 8:
+                return min(0.95, base_confidence + 0.1)
+            else:
+                return base_confidence * 0.5
+        
+        elif data_type == "recipient_name":
+            # Nome deve ter pelo menos 2 palavras e comprimento adequado
+            words = extracted.split()
+            if len(words) >= 2 and 5 <= len(extracted) <= 60:
+                # Bonus para nomes completos típicos brasileiros
+                if any(prefix in extracted.lower() for prefix in ["de", "da", "do", "dos", "das"]):
+                    return min(0.95, base_confidence + 0.1)
+                return base_confidence
+            else:
+                return base_confidence * 0.6
+        
+        elif data_type == "address":
+            # Endereço deve ter número
+            if re.search(r"\d+", extracted):
+                return min(0.90, base_confidence + 0.05)
+            else:
+                return base_confidence * 0.7
+        
+        elif data_type == "nf_number":
+            # Nota fiscal deve ser numérica ou alfanumérica
+            if re.match(r"^[A-Z]?\d+$", extracted):
+                return min(0.90, base_confidence + 0.05)
+            else:
+                return base_confidence * 0.6
+        
+        return base_confidence
+    
+    def analyze_full_text(self, text: str) -> Dict:
+        """Análise completa do texto extraído"""
+        
+        # 1. Identificar transportadora
+        company_match = self.identify_company(text)
+        
+        # 2. Extrair todos os dados
+        extracted_data = {}
+        for data_type in self.data_extraction_patterns.keys():
+            results = self.extract_data(text, data_type)
+            if results:
+                extracted_data[data_type] = results[0]  # Melhor resultado
+        
+        # 3. Calcular score geral
+        total_confidence = company_match.confidence
+        data_bonus = len(extracted_data) * 0.05  # Bonus por dados encontrados
+        
+        return {
+            "company": company_match,
+            "extracted_data": extracted_data,
+            "overall_confidence": min(0.99, total_confidence + data_bonus),
+            "analysis_summary": {
+                "company_detected": company_match.company.value,
+                "data_fields_found": len(extracted_data),
+                "total_patterns_matched": 1 + len(extracted_data),
+                "recommendation": self._get_recommendation(company_match, extracted_data)
+            }
+        }
+    
+    def _get_recommendation(self, company_match: PatternMatch, extracted_data: Dict) -> str:
+        """Gera recomendação baseada na análise"""
+        
+        if company_match.confidence > 0.8 and len(extracted_data) >= 3:
+            return "✅ Etiqueta bem reconhecida - Prosseguir com validação GPS"
+        elif company_match.confidence > 0.6:
+            return "⚠️ Reconhecimento parcial - Verificar dados manualmente"
+        elif len(extracted_data) >= 2:
+            return "🔍 Transportadora não identificada mas dados extraídos - Investigar padrão"
+        else:
+            return "❌ Etiqueta com baixa qualidade - Repetir foto ou processar manualmente"
+
+
+# Instância global para uso em outros módulos
+tags_patterns = TagsPatterns() 
