@@ -1,0 +1,113 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "🚀 Debug Main - Imagem Padrão",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "stopOnEntry": false
+        },
+        {
+            "name": "🔍 Debug OCR - Test 001 (iPhone)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "DEBUG_IMAGE": "samples/test_001.jpg"
+            },
+            "stopOnEntry": false
+        },
+        {
+            "name": "📱 Debug iPhone EXIF - test_001.jpg",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "DEBUG_IMAGE": "samples/test_001.jpg"
+            },
+            "stopOnEntry": false
+        },
+        {
+            "name": "🧪 Debug com Breakpoints Automáticos",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "DEBUG_MODE": "1",
+                "DEBUG_IMAGE": "samples/test_001.jpg"
+            },
+            "stopOnEntry": false
+        },
+        {
+            "name": "🧪 Debug OCR Extractor",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/ocr_extractor.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "stopOnEntry": true
+        },
+        {
+            "name": "📋 Debug Metadata Reader",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/metadata_reader.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "stopOnEntry": true
+        },
+        {
+            "name": "🔧 Debug Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "🐍 Python: Debug with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--image", "samples/test_001.jpg", "--debug"],
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "DEBUG_MODE": "1"
+            }
+        }
+    ]
+} 
