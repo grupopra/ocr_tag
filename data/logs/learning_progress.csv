@@ -1,0 +1,5 @@
+timestamp,image_path,company_detected,confidence,data_fields_found,gps_validation,route_match,learning_outcome,total_processed
+2025-06-20T18:49:38.108519,samples/test_001.jpg,unknown,0.0,0,True,True,unknown_pattern_logged,1
+2025-06-20T18:49:55.945102,samples/test_001.jpg,unknown,0.0,0,True,True,unknown_pattern_logged,2
+2025-06-20T18:51:53.683762,samples/test_001.jpg,amazon,0.8,4,True,True,successful_validation,3
+2025-06-20T18:52:57.943381,samples/test_001.jpg,amazon,0.8,5,True,True,successful_validation,4
