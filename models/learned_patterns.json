@@ -1,89 +1,40 @@
 {
   "version": "1.0",
-  "last_updated": "2025-06-20T18:52:57.943422",
+  "last_updated": "2025-06-20T20:00:32.722962",
   "statistics": {
-    "total_images": 4,
-    "successful_recognitions": 2,
+    "total_images": 3,
+    "successful_recognitions": 3,
     "companies_learned": 1,
     "accuracy_evolution": [
       {
-        "timestamp": "2025-06-20T18:49:38.108519",
+        "timestamp": "2025-06-20T19:54:08.801529",
         "total_images": 1,
-        "accuracy": 0.0
+        "accuracy": 100.0
       },
       {
-        "timestamp": "2025-06-20T18:49:55.945102",
+        "timestamp": "2025-06-20T19:57:24.871874",
         "total_images": 2,
-        "accuracy": 0.0
+        "accuracy": 100.0
       },
       {
-        "timestamp": "2025-06-20T18:51:53.683762",
+        "timestamp": "2025-06-20T20:00:32.722871",
         "total_images": 3,
-        "accuracy": 33.33333333333333
-      },
-      {
-        "timestamp": "2025-06-20T18:52:57.943381",
-        "total_images": 4,
-        "accuracy": 50.0
+        "accuracy": 100.0
       }
     ]
   },
   "companies": {
     "amazon": {
-      "confidence_score": 95.1,
-      "total_samples": 2,
-      "successful_validations": 2,
+      "confidence_score": 0.0,
+      "total_samples": 0,
+      "successful_validations": 0,
       "visual_patterns": {
         "logo_signatures": [],
-        "text_patterns": [
-          "conta",
-          "logistics",
-          "jussara",
-          "tambore",
-          "mess",
-          "caroline",
-          "proto",
-          "agirantes",
-          "janeiro",
-          "cardsshippin",
-          "lame",
-          "srjio",
-          "souza",
-          "silva",
-          "professor",
-          "taciel",
-          "gyllend",
-          "recrelo",
-          "bandeirantes",
-          "cashback",
-          "sanep",
-          "pssine",
-          "omer",
-          "usonut",
-          "uveitis",
-          "produtos",
-          "selecionados",
-          "consulle",
-          "eppiicavel",
-          "cidade"
-        ],
+        "text_patterns": [],
         "color_patterns": []
       },
       "shortcuts": {},
-      "evolution_timeline": [
-        {
-          "timestamp": "2025-06-20T18:51:53.683762",
-          "confidence": 95.05,
-          "total_samples": 1,
-          "success_rate": 1.0
-        },
-        {
-          "timestamp": "2025-06-20T18:52:57.943381",
-          "confidence": 95.1,
-          "total_samples": 2,
-          "success_rate": 1.0
-        }
-      ]
+      "evolution_timeline": []
     },
     "correios": {
       "confidence_score": 0.0,
@@ -109,25 +60,62 @@
       "shortcuts": {},
       "evolution_timeline": []
     },
-    "unknown": {
-      "confidence_score": 0.0,
-      "total_samples": 2,
-      "patterns_to_investigate": [
+    "jadlog": {
+      "confidence_score": 95.15,
+      "total_samples": 3,
+      "successful_validations": 3,
+      "visual_patterns": {
+        "logo_signatures": [],
+        "text_patterns": [
+          "pacoíe",
+          "unico",
+          "zine",
+          "jadiog",
+          "itens",
+          "squeeze",
+          "alumínio",
+          "corpo",
+          "caroline",
+          "professor",
+          "recreio",
+          "bandeirantes",
+          "janeiro",
+          "aluminio",
+          "fadiao",
+          "oivd",
+          "destinatario",
+          "comey",
+          "ojinn",
+          "bandeir"
+        ],
+        "color_patterns": []
+      },
+      "shortcuts": {},
+      "evolution_timeline": [
         {
-          "timestamp": "2025-06-20T18:49:38.108519",
-          "image_path": "samples/test_001.jpg",
-          "ocr_text": "",
-          "extracted_data": {},
-          "potential_patterns": []
+          "timestamp": "2025-06-20T19:54:08.801529",
+          "confidence": 95.05,
+          "total_samples": 1,
+          "success_rate": 1.0
         },
         {
-          "timestamp": "2025-06-20T18:49:55.945102",
-          "image_path": "samples/test_001.jpg",
-          "ocr_text": "",
-          "extracted_data": {},
-          "potential_patterns": []
+          "timestamp": "2025-06-20T19:57:24.871874",
+          "confidence": 95.1,
+          "total_samples": 2,
+          "success_rate": 1.0
+        },
+        {
+          "timestamp": "2025-06-20T20:00:32.722871",
+          "confidence": 95.15,
+          "total_samples": 3,
+          "success_rate": 1.0
         }
       ]
+    },
+    "unknown": {
+      "confidence_score": 0.0,
+      "total_samples": 0,
+      "patterns_to_investigate": []
     }
   }
 }

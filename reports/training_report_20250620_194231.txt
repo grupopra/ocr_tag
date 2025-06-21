@@ -1,0 +1,30 @@
+================================================================================
+🧠 RELATÓRIO DE TREINAMENTO AUTOMÁTICO DE PADRÕES
+================================================================================
+📅 Data: 2025-06-20 19:42:31
+📊 Total de empresas processadas: 2
+📸 Total de imagens processadas: 2
+
+🏢 EMPRESA: JADLOG
+----------------------------------------
+📄 Textos processados: 1
+📊 Palavras únicas: 56
+📏 Comprimento médio: 373 caracteres
+🔝 Top palavras: squeeze, 22790, 010, pacoíe, unico, zine, jadiog, itens
+🎯 Padrões únicos: number_2807, cep_pattern, number_2198, apt301, number_4049
+🔧 Padrões gerados: 3
+  • keywords: (?i)(squeeze|22790|010)...
+  • unique: (?i)(number_2807|number_2198|apt301|number_4049)...
+  • combo: (?i).*(squeeze).*(22790)|.*(22790).*(squeeze)...
+
+🏢 EMPRESA: MERCADO_LIVRE
+----------------------------------------
+📄 Textos processados: 1
+📊 Palavras únicas: 73
+📏 Comprimento médio: 440 caracteres
+🔝 Top palavras: rua, rio, janeiro, dre, conta, logistics, 1582976565, jussara
+🎯 Padrões únicos: number_4502, number_2279, number_3176, number_1582, jussara
+🔧 Padrões gerados: 3
+  • keywords: (?i)(rua|rio|janeiro)...
+  • unique: (?i)(number_4502|number_2279|number_3176|number_1582|jussara...
+  • combo: (?i).*(rua).*(rio)|.*(rio).*(rua)...

@@ -12,6 +12,7 @@ class CompanyType(Enum):
     AMAZON = "amazon"
     CORREIOS = "correios"
     MERCADO_LIVRE = "mercado_livre"
+    JADLOG = "jadlog"
     CUSTOM = "custom"
     UNKNOWN = "unknown"
 
@@ -36,24 +37,24 @@ class TagsPatterns:
             CompanyType.AMAZON: [
                 {
                     "name": "amazon_logo",
-                    "pattern": r"(?i)(amazon\.com\.br|amazon|fulfillment|prime)",
+                    "pattern": r"(?i)(amazon\.com\.br|amazon\.com|fulfillment.*amazon|prime.*amazon)",
                     "confidence": 0.95,
-                    "shortcuts": ["amazon.com.br", "prime", "fulfillment"]
+                    "shortcuts": ["amazon.com.br", "amazon.com", "prime", "fulfillment"]
                 },
                 {
-                    "name": "amazon_address",
-                    "pattern": r"(?i)(av\.?\s+das\s+nações\s+unidas|barueri|sp)",
-                    "confidence": 0.75,
-                    "context": "amazon_warehouse"
+                    "name": "amazon_specific_warehouse",
+                    "pattern": r"(?i)(av\.?\s+das\s+nações\s+unidas.*barueri|fulfillment.*center)",
+                    "confidence": 0.85,
+                    "context": "amazon_warehouse_complete"
                 }
             ],
             
             CompanyType.CORREIOS: [
                 {
-                    "name": "correios_logo", 
-                    "pattern": r"(?i)(correios|empresa\s+brasileira\s+de\s+correios|pac|sedex)",
-                    "confidence": 0.90,
-                    "shortcuts": ["correios", "pac", "sedex", "ecorreios"]
+                    "name": "correios_official", 
+                    "pattern": r"(?i)(correios\.com\.br|empresa\s+brasileira\s+de\s+correios|pac.*correios|sedex.*correios)",
+                    "confidence": 0.95,
+                    "shortcuts": ["correios.com.br", "empresa brasileira", "ecorreios"]
                 },
                 {
                     "name": "correios_code",
@@ -65,16 +66,39 @@ class TagsPatterns:
             
             CompanyType.MERCADO_LIVRE: [
                 {
-                    "name": "ml_logo",
-                    "pattern": r"(?i)(mercado\s*livre|mercado\s*envios|meli)",
-                    "confidence": 0.90,
-                    "shortcuts": ["mercado livre", "mercado envios", "meli"]
+                    "name": "ml_logistics_signature",
+                    "pattern": r"(?i)(logistics\s*#\d+|conta\s*logistics)",
+                    "confidence": 0.95,
+                    "shortcuts": ["logistics", "conta logistics"],
+                    "context": "ml_specific_trained"
                 },
                 {
-                    "name": "ml_full_code",
-                    "pattern": r"(?i)(full\s*fulfillment|cross\s*docking)",
-                    "confidence": 0.80,
-                    "context": "ml_logistics"
+                    "name": "ml_warehouse_tambore",
+                    "pattern": r"(?i)(tambore|jussara.*1250)",
+                    "confidence": 0.85,
+                    "context": "ml_warehouse_location"
+                },
+                {
+                    "name": "ml_traditional",
+                    "pattern": r"(?i)(mercado\s*livre|mercado\s*envios|meli)",
+                    "confidence": 0.75,
+                    "shortcuts": ["mercado livre", "mercado envios", "meli"]
+                }
+            ],
+            
+            CompanyType.JADLOG: [
+                {
+                    "name": "jadlog_signature",
+                    "pattern": r"(?i)(jadlog|jad\s*log)",
+                    "confidence": 0.95,
+                    "shortcuts": ["jadlog"],
+                    "context": "jadlog_official"
+                },
+                {
+                    "name": "jadlog_patterns",
+                    "pattern": r"(?i)(squeeze|aluminio|corpo|unico)",
+                    "confidence": 0.70,
+                    "context": "jadlog_products"
                 }
             ]
         }

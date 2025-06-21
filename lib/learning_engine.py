@@ -103,6 +103,18 @@ class LearningEngine:
                     "shortcuts": {},
                     "evolution_timeline": []
                 },
+                "jadlog": {
+                    "confidence_score": 0.0,
+                    "total_samples": 0,
+                    "successful_validations": 0,
+                    "visual_patterns": {
+                        "logo_signatures": [],
+                        "text_patterns": [],
+                        "color_patterns": []
+                    },
+                    "shortcuts": {},
+                    "evolution_timeline": []
+                },
                 "unknown": {
                     "confidence_score": 0.0,
                     "total_samples": 0,
@@ -186,6 +198,23 @@ class LearningEngine:
         """Aprende com reconhecimento bem-sucedido"""
         
         company = session.company_detected
+        
+        # Verificar se empresa existe, se não, criar dinamicamente
+        if company not in self.learned_patterns["companies"]:
+            print(f"🆕 [APRENDIZADO] Nova empresa detectada: {company} - Criando estrutura...")
+            self.learned_patterns["companies"][company] = {
+                "confidence_score": 0.0,
+                "total_samples": 0,
+                "successful_validations": 0,
+                "visual_patterns": {
+                    "logo_signatures": [],
+                    "text_patterns": [],
+                    "color_patterns": []
+                },
+                "shortcuts": {},
+                "evolution_timeline": []
+            }
+        
         company_data = self.learned_patterns["companies"][company]
         
         # Atualizar contadores
